@@ -1,0 +1,31 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug philo with LLDB",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/philo",
+			"args": [2, 1000, 1000, 1000],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			"preLaunchTask": "build philo"
+		},
+		{
+			"name": "Debug philo with GDB",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/philo",
+			"args": [3, 1000, 1000, 1000],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"preLaunchTask": "build philo"
+		}
+	]
+}

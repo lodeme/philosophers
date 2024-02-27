@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:30:04 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 00:49:07 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,43 @@ void *philosopher_lifecycle(void *arg)
 	pthread_exit(NULL);
 }
 
-int philosophers(t_data *data)
+int	create_threads(t_data *data)
 {
-	// Create philosopher threads
-	for (int i = 0; i < data->philo_count; i++)
+	int	i;
+
+	i = 0;
+	while (i < data->philo_count)
 	{
 		if (pthread_create(&data->thread[i], NULL, philosopher_lifecycle, (void *)&data->philo[i]))
-		{
-			fprintf(stderr, "Error creating thread\n");
-			return (FAILURE);
-		}
+			return (ft_error(data, 3));
+		i++;
 	}
+	return (SUCCESS);
+}
 
-	// Join threads
-	for (int i = 0; i < data->philo_count; i++)
-		pthread_join(data->thread[i], NULL);
+void	join_threads(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	while (i < data->philo_count)
+		pthread_join(data->thread[i++], NULL);
+}
 
-	// Destroy mutexes
-	for (int i = 0; i < data->philo_count; i++)
-		pthread_mutex_destroy(&data->mutex[i]);
+void	destroy_mutexes(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	while (i < data->philo_count)
+		pthread_mutex_destroy(&data->mutex[i++]);
+}
+
+int	philosophers(t_data *data)
+{
+	create_threads(data);
+	join_threads(data);
+	destroy_mutexes(data);
 	return (SUCCESS);
 }
 
@@ -65,7 +83,10 @@ int main(int argc, char **argv)
 		printf("args error: expected:\n- nb_philosophers\n- ms_to_starve\n- ms_to_eat\n- ms_to_sleep\n- times_eating (optional)\n");
 		return (EXIT_FAILURE);
 	}
-	init_data(&data, argv);
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (ft_error(data, 1));
+	init_data(data, argv);
 	if (!data)
 		return (EXIT_FAILURE);
 	if (!philosophers(data))

@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:26:49 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 00:38:40 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	ft_error(t_data *data, int err)
 		printf("Unable to allocate memory\n");
 	if (err == 2)
 		printf("Unable to initialize mutex\n");
+	if (err == 3)
+		printf("Unable to create thread\n");
 	else
 		printf("Unknown error\n");
 	free_data(data);

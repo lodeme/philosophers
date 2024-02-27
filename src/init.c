@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:28:16 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 00:51:28 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int init_mutexes(t_data *data)
 	while (i < data->philo_count)
 	{
 		if (pthread_mutex_init(&data->mutex[i++], NULL) != 0)
-			;
-		return (ft_error(data, 2));
+			return (ft_error(data, 2));
 	}
 	return (SUCCESS);
 }
@@ -66,14 +65,8 @@ int init_philosophers(t_data *data)
 	return (SUCCESS);
 }
 
-int init_data(t_data **p_data, char **argv)
+int init_data(t_data *data, char **argv)
 {
-	t_data *data;
-
-	data = *p_data;
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (ft_error(data, 1));
 	init_parameters(data, argv);
 	data->thread = malloc(sizeof(pthread_t) * data->philo_count);
 	if (!data->thread)

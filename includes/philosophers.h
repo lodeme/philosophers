@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:15:39 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 00:47:39 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 }	t_data;
 
 // INIT
-int			init_data(t_data **p_data, char **argv);
+int			init_data(t_data *data, char **argv);
 
 // UTILS
 int			ft_atoi(const char *str);
