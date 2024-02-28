@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 13:06:07 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:12:39 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 {
 	int			id;
 	long long	last_meal_ts;
+	int			meal_count;
 	t_data		*data;
 }	t_philo;
 

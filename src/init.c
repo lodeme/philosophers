@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:51:28 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 13:13:01 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void init_parameters(t_data *data, char **argv)
+void	init_parameters(t_data *data, char **argv)
 {
 	data->philo_count = ft_atoi(argv[1]);
 	data->ms_to_starve = ft_atoi(argv[2]);
@@ -28,9 +28,9 @@ void init_parameters(t_data *data, char **argv)
 	data->philo = 0;
 }
 
-int init_mutexes(t_data *data)
+int	init_mutexes(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->mutex = malloc(sizeof(pthread_mutex_t) * data->philo_count);
@@ -44,9 +44,9 @@ int init_mutexes(t_data *data)
 	return (SUCCESS);
 }
 
-int init_philosophers(t_data *data)
+int	init_philosophers(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->philo = malloc(sizeof(t_philo *) * data->philo_count);
@@ -60,12 +60,13 @@ int init_philosophers(t_data *data)
 		data->philo[i]->id = i;
 		data->philo[i]->last_meal_ts = 0;
 		data->philo[i]->data = data;
+		data->philo[i]->meal_count = 0;
 		i++;
 	}
 	return (SUCCESS);
 }
 
-int init_data(t_data *data, char **argv)
+int	init_data(t_data *data, char **argv)
 {
 	init_parameters(data, argv);
 	data->thread = malloc(sizeof(pthread_t) * data->philo_count);
