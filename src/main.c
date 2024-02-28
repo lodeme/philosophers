@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 20:14:43 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 20:16:49 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	check_arguments(int argc)
 	if (argc < 5 || argc > 6)
 	{
 	printf("args error: expected:\n"
-		"- nb_philosophers\n"
-		"- ms_to_starve\n"
-		"- ms_to_eat\n"
-		"- ms_to_sleep\n"
-		"- times_eating (optional)\n");
+		"1. (int) nb_philosophers\n"
+		"2. (int) ms_to_starve\n"
+		"3. (int) ms_to_eat\n"
+		"4. (int) ms_to_sleep\n"
+		"5. (int) times_eating (optional)\n");
 		return (FAILURE);
 	}
 	return (SUCCESS);
