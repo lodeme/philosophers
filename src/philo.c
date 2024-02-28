@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/28 23:00:36 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 23:03:01 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ void	log_state(t_philo *philo, int step)
 		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), philo->id);
 }
 
+void	lock_mutex(t_philo *philo)
+{
+	if (philo->id == 0)
+	{
+		log_state(philo, 1);
+		pthread_mutex_lock(&philo->data->mutex[philo->id]);
+		log_state(philo, 2);
+		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+	}
+	else
+	{
+		log_state(philo, 1);
+		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+		log_state(philo, 2);
+		pthread_mutex_lock(&philo->data->mutex[philo->id]);
+	}
+	log_state(philo, 2);
+	log_state(philo, 3);
+}
+
 void *philosopher_cycle(void *arg)
 {
 	t_philo *philo;
@@ -31,22 +51,7 @@ void *philosopher_cycle(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->continue_sim)
 	{
-		if (philo->id == 0)
-		{
-			log_state(philo, 1);
-			pthread_mutex_lock(&philo->data->mutex[philo->id]);
-			log_state(philo, 2);
-			pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
-		}
-		else
-		{
-			log_state(philo, 1);
-			pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
-			log_state(philo, 2);
-			pthread_mutex_lock(&philo->data->mutex[philo->id]);
-		}
-		log_state(philo, 2);
-		log_state(philo, 3);
+		lock_mutex(philo);
 		if (philo->data->continue_sim)
 			usleep(philo->data->ms_to_eat * 1000);
 		philo->meal_count++;
