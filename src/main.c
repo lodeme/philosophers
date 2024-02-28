@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 00:49:07 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 01:17:08 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	create_threads(t_data *data)
 	i = 0;
 	while (i < data->philo_count)
 	{
-		if (pthread_create(&data->thread[i], NULL, philosopher_lifecycle, (void *)&data->philo[i]))
+		if (pthread_create(&data->thread[i], NULL, philosopher_lifecycle, (void *)data->philo[i]))
 			return (ft_error(data, 3));
 		i++;
 	}
