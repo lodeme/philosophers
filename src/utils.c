@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:41 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/27 23:48:23 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 13:07:02 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	result;
 	int	sign;
 
 	result = 0;
 	sign = 1;
-	while (*str == ' ' || *str == '\t' || *str == '\n' ||
-			*str == '\v' || *str == '\f' || *str == '\r')
+	while (*str == ' ' || *str == '\t' || *str == '\n'
+		|| *str == '\v' || *str == '\f' || *str == '\r')
 		str++;
 	if (*str == '-' || *str == '+')
 	{
@@ -36,15 +36,15 @@ int ft_atoi(const char *str)
 	return (sign * result);
 }
 
-long long ts()
+long long	ts(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, 0);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-long long ms_elapsed(t_data *data)
+long long	ms_elapsed(t_data *data)
 {
 	return (ts() - data->ts_start);
 }

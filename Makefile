@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+         #
+#    By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 09:50:52 by louis.demet       #+#    #+#              #
-#    Updated: 2024/02/27 16:05:39 by louis.demet      ###   ########.fr        #
+#    Updated: 2024/02/28 13:04:43 by lodemetz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CC =		cc
 CFLAGS =	-Werror -Wextra -Wall -g
 INCLUDES =	-Iincludes
 SRC =		src/main.c \
+			src/philo.c \
 			src/init.c \
 			src/utils.c \
 			src/free.c
