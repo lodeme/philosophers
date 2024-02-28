@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 23:07:34 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 23:15:35 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,19 @@ typedef struct s_data
 	int				ms_to_eat;
 	int				ms_to_sleep;
 	int				times_eating;
-	volatile		continue_sim;
+	volatile int	continue_sim;
 	long long		ts_start;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
 	t_philo			**philo;
 }	t_data;
 
-//PHILO
+// THREADS
 int			philosophers(t_data *data);
+
+// CYCLES
+void		*philosopher_cycle(void *arg);
+void		*monitor_cycle(void *arg);
 
 // INIT
 int			init_data(t_data *data, char **argv);

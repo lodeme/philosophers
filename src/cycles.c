@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/28 23:03:01 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 23:31:55 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	log_state(t_philo *philo, int step)
 {
+	int	id;
+
+	id = philo->id;
 	if (philo->data->continue_sim && step == 1)
-		printf("%lli\t%d is thinking.\n", ms_elapsed(philo->data), philo->id);
+		printf("%lli\t%d is thinking.\n", ms_elapsed(philo->data), id);
 	else if (philo->data->continue_sim && step == 2)
-		printf("%lli\t%d has taken a fork.\n", ms_elapsed(philo->data), philo->id);
+		printf("%lli\t%d has taken a fork.\n", ms_elapsed(philo->data), id);
 	else if (philo->data->continue_sim && step == 3)
-		printf("%lli\t%d is eating.\n", ms_elapsed(philo->data), philo->id);
+		printf("%lli\t%d is eating.\n", ms_elapsed(philo->data), id);
 	else if (philo->data->continue_sim && step == 4)
-		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), philo->id);
+		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), id);
 }
 
 void	lock_mutex(t_philo *philo)
@@ -51,6 +54,8 @@ void *philosopher_cycle(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->continue_sim)
 	{
+		if (philo->id % 2 == 1)
+			usleep(50);
 		lock_mutex(philo);
 		if (philo->data->continue_sim)
 			usleep(philo->data->ms_to_eat * 1000);
@@ -66,6 +71,20 @@ void *philosopher_cycle(void *arg)
 	pthread_exit(NULL);
 }
 
+void	check_philosopher_state(t_data *data, long long current_ts, int i)
+{
+	if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
+	{
+		data->continue_sim = 0;
+		printf("%lli\t%i died\n", ms_elapsed(data), i);
+	}
+	if (data->times_eating && data->philo[i]->meal_count >= data->times_eating)
+	{
+		data->continue_sim = 0;
+		printf("%lli\tAll philosophers have eaten %i meals\n", ms_elapsed(data), data->times_eating);
+	}
+}
+
 void *monitor_cycle(void *arg)
 {
 	t_data *data;
@@ -78,63 +97,8 @@ void *monitor_cycle(void *arg)
 		current_ts = ts();
 		i = 0;
 		while (i < data->philo_count)
-		{
-			if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
-			{
-				data->continue_sim = 0;
-				printf("%lli\t%i died\n", ms_elapsed(data), i);
-			}
-			if (data->times_eating && data->philo[i]->meal_count >= data->times_eating)
-			{
-				data->continue_sim = 0;
-				printf("%lli\tAll philosophers have eaten %i meals\n", ms_elapsed(data), data->times_eating);
-			}
-			i++;
-		}
+			check_philosopher_state(data, current_ts, i++);
 		usleep(1000);
 	}
 	pthread_exit(NULL);
-}
-
-int create_threads(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->philo_count)
-	{
-		if (pthread_create(&data->thread[i], NULL, philosopher_cycle, (void *)data->philo[i]))
-			return (ft_error(data, 3));
-		i++;
-	}
-	if (pthread_create(&data->thread[i], NULL, monitor_cycle, (void *)data))
-		return (ft_error(data, 3));
-	return (SUCCESS);
-}
-
-void join_threads(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->philo_count + 1)
-		pthread_join(data->thread[i++], NULL);
-}
-
-void destroy_mutexes(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->philo_count)
-		pthread_mutex_destroy(&data->mutex[i++]);
-}
-
-int philosophers(t_data *data)
-{
-	if (!create_threads(data))
-		return (FAILURE);
-	join_threads(data);
-	destroy_mutexes(data);
-	return (SUCCESS);
 }
