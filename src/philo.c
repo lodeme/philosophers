@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/28 22:47:39 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 23:00:36 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,32 @@ void *philosopher_cycle(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->continue_sim)
 	{
-		log_state(philo, 1);
-		pthread_mutex_lock(&philo->data->mutex[philo->id]);
-		log_state(philo, 2);
-		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % \
-			philo->data->philo_count]);
+		if (philo->id == 0)
+		{
+			log_state(philo, 1);
+			pthread_mutex_lock(&philo->data->mutex[philo->id]);
+			log_state(philo, 2);
+			pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+		}
+		else
+		{
+			log_state(philo, 1);
+			pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+			log_state(philo, 2);
+			pthread_mutex_lock(&philo->data->mutex[philo->id]);
+		}
 		log_state(philo, 2);
 		log_state(philo, 3);
-		usleep(philo->data->ms_to_eat * 1000);
+		if (philo->data->continue_sim)
+			usleep(philo->data->ms_to_eat * 1000);
 		philo->meal_count++;
 		philo->last_meal_ts = ts();
 		pthread_mutex_unlock(&philo->data->mutex[philo->id]);
 		pthread_mutex_unlock(&philo->data->mutex[(philo->id + 1) % \
 			philo->data->philo_count]);
 		log_state(philo, 4);
-		usleep(philo->data->ms_to_sleep * 1000);
+		if (philo->data->continue_sim)
+			usleep(philo->data->ms_to_sleep * 1000);
 	}
 	pthread_exit(NULL);
 }
@@ -66,7 +77,7 @@ void *monitor_cycle(void *arg)
 			if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
 			{
 				data->continue_sim = 0;
-				printf("%lli\t%i has starved\n", ms_elapsed(data), i);
+				printf("%lli\t%i died\n", ms_elapsed(data), i);
 			}
 			if (data->times_eating && data->philo[i]->meal_count >= data->times_eating)
 			{
