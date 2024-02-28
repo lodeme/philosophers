@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/28 23:31:55 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 23:38:42 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void *philosopher_cycle(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 1)
+		usleep(50);
 	while (philo->data->continue_sim)
 	{
-		if (philo->id % 2 == 1)
-			usleep(50);
 		lock_mutex(philo);
 		if (philo->data->continue_sim)
 			usleep(philo->data->ms_to_eat * 1000);
@@ -96,7 +96,7 @@ void *monitor_cycle(void *arg)
 	{
 		current_ts = ts();
 		i = 0;
-		while (i < data->philo_count)
+		while (i < data->philo_count && data->continue_sim)
 			check_philosopher_state(data, current_ts, i++);
 		usleep(1000);
 	}
