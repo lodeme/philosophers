@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 20:13:56 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 20:14:43 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_arguments(int argc)
 		"- ms_to_eat\n"
 		"- ms_to_sleep\n"
 		"- times_eating (optional)\n");
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	return (SUCCESS);
 }
