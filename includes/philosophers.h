@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 13:12:39 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/02/28 20:30:00 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	int				ms_to_eat;
 	int				ms_to_sleep;
 	int				times_eating;
+	int				sim_ok;
 	long long		ts_start;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;

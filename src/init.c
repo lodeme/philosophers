@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 13:13:01 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/02/28 21:09:15 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_parameters(t_data *data, char **argv)
 	data->thread = 0;
 	data->mutex = 0;
 	data->philo = 0;
+	data->sim_ok = 1;
 }
 
 int	init_mutexes(t_data *data)
@@ -58,7 +59,7 @@ int	init_philosophers(t_data *data)
 		if (!data->philo[i])
 			return (ft_error(data, 1));
 		data->philo[i]->id = i;
-		data->philo[i]->last_meal_ts = 0;
+		data->philo[i]->last_meal_ts = data->ts_start;
 		data->philo[i]->data = data;
 		data->philo[i]->meal_count = 0;
 		i++;
@@ -69,7 +70,7 @@ int	init_philosophers(t_data *data)
 int	init_data(t_data *data, char **argv)
 {
 	init_parameters(data, argv);
-	data->thread = malloc(sizeof(pthread_t) * data->philo_count);
+	data->thread = malloc(sizeof(pthread_t) * (data->philo_count + 1));
 	if (!data->thread)
 		return (ft_error(data, 1));
 	if (!init_mutexes(data))
