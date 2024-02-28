@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 01:17:08 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 11:25:20 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	destroy_mutexes(t_data *data)
 
 int	philosophers(t_data *data)
 {
-	create_threads(data);
+	if (!create_threads(data));
+		return (FAILURE);
 	join_threads(data);
 	destroy_mutexes(data);
 	return (SUCCESS);
