@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 21:31:50 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 22:33:38 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data
 	int ms_to_eat;
 	int ms_to_sleep;
 	int times_eating;
-	int continue_sim;
+	volatile int continue_sim;
 	long long ts_start;
 	pthread_t *thread;
 	pthread_mutex_t *mutex;
