@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 11:25:20 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/28 11:29:52 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void *philosopher_lifecycle(void *arg)
 		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
 		printf("%lli %d has taken a fork.\n", ms_elapsed(philo->data), philo->id);
 		printf("%lli %d is eating.\n", ms_elapsed(philo->data), philo->id);
-		sleep(1);
+		usleep(philo->data->ms_to_eat * 1000);
 		pthread_mutex_unlock(&philo->data->mutex[philo->id]);
 		pthread_mutex_unlock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
 		printf("%lli %d is sleeping.\n", ms_elapsed(philo->data), philo->id);
-		sleep(2);
+		usleep(philo->data->ms_to_sleep * 1000);
 	}
 	pthread_exit(NULL);
 }
