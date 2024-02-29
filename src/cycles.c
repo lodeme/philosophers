@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/28 23:38:42 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 09:08:37 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void	lock_mutex(t_philo *philo)
 		log_state(philo, 1);
 		pthread_mutex_lock(&philo->data->mutex[philo->id]);
 		log_state(philo, 2);
-		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
+			% philo->data->philo_count]);
 	}
 	else
 	{
 		log_state(philo, 1);
-		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) % philo->data->philo_count]);
+		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
+			 % philo->data->philo_count]);
 		log_state(philo, 2);
 		pthread_mutex_lock(&philo->data->mutex[philo->id]);
 	}
@@ -71,17 +73,29 @@ void *philosopher_cycle(void *arg)
 	pthread_exit(NULL);
 }
 
-void	check_philosopher_state(t_data *data, long long current_ts, int i)
+void	check_philosopher_state(t_data *data, long long current_ts)
 {
-	if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
+	int	i;
+	int	satiated;
+
+	i = 0;
+	satiated = 0;
+	while (i < data->philo_count && data->continue_sim)
 	{
-		data->continue_sim = 0;
-		printf("%lli\t%i died\n", ms_elapsed(data), i);
+		if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
+		{
+			data->continue_sim = 0;
+			printf("%lli\t%i died\n", ms_elapsed(data), i);
+		}
+		if (data->philo[i]->meal_count >= data->times_eating)
+			satiated++;
+		i++;
 	}
-	if (data->times_eating && data->philo[i]->meal_count >= data->times_eating)
+	if (data->times_eating && satiated >= data->times_eating)
 	{
 		data->continue_sim = 0;
-		printf("%lli\tAll philosophers have eaten %i meals\n", ms_elapsed(data), data->times_eating);
+		printf("%lli\tAll philosophers have eaten %i meals\n", \
+			 ms_elapsed(data), data->times_eating);
 	}
 }
 
@@ -89,15 +103,12 @@ void *monitor_cycle(void *arg)
 {
 	t_data *data;
 	long long current_ts;
-	int i;
 
 	data = (t_data *)arg;
 	while (data->continue_sim)
 	{
 		current_ts = ts();
-		i = 0;
-		while (i < data->philo_count && data->continue_sim)
-			check_philosopher_state(data, current_ts, i++);
+		check_philosopher_state(data, current_ts);
 		usleep(1000);
 	}
 	pthread_exit(NULL);

@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 23:15:35 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 08:55:14 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
-	int			id;
-	long long	last_meal_ts;
-	int			meal_count;
+	int						id;
+	volatile long long		last_meal_ts;
+	volatile int			meal_count;
 	t_data		*data;
 }	t_philo;
 
