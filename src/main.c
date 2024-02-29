@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/28 20:16:49 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 15:00:10 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	check_arguments(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
-	printf("args error: expected:\n"
-		"1. (int) nb_philosophers\n"
-		"2. (int) ms_to_starve\n"
-		"3. (int) ms_to_eat\n"
-		"4. (int) ms_to_sleep\n"
-		"5. (int) times_eating (optional)\n");
+		printf("args error: expected:\n"
+			"1. (int) nb_philosophers\n"
+			"2. (int) ms_to_starve\n"
+			"3. (int) ms_to_eat\n"
+			"4. (int) ms_to_sleep\n"
+			"5. (int) times_eating (optional)\n");
 		return (FAILURE);
 	}
 	return (SUCCESS);

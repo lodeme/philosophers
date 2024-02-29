@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/29 08:55:14 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 15:01:47 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philo
 	int						id;
 	volatile long long		last_meal_ts;
 	volatile int			meal_count;
-	t_data		*data;
+	t_data					*data;
 }	t_philo;
 
 typedef struct s_data

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/29 09:08:37 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 15:01:33 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	lock_mutex(t_philo *philo)
 	{
 		log_state(philo, 1);
 		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
-			 % philo->data->philo_count]);
+			% philo->data->philo_count]);
 		log_state(philo, 2);
 		pthread_mutex_lock(&philo->data->mutex[philo->id]);
 	}
@@ -49,9 +49,9 @@ void	lock_mutex(t_philo *philo)
 	log_state(philo, 3);
 }
 
-void *philosopher_cycle(void *arg)
+void	*philosopher_cycle(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
@@ -95,14 +95,14 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 	{
 		data->continue_sim = 0;
 		printf("%lli\tAll philosophers have eaten %i meals\n", \
-			 ms_elapsed(data), data->times_eating);
+			ms_elapsed(data), data->times_eating);
 	}
 }
 
-void *monitor_cycle(void *arg)
+void	*monitor_cycle(void *arg)
 {
-	t_data *data;
-	long long current_ts;
+	t_data		*data;
+	long long	current_ts;
 
 	data = (t_data *)arg;
 	while (data->continue_sim)

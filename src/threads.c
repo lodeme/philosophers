@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 23:09:15 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/29 09:08:58 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/02/29 14:59:24 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int create_threads(t_data *data)
+int	create_threads(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_count)
@@ -29,25 +29,25 @@ int create_threads(t_data *data)
 	return (SUCCESS);
 }
 
-void join_threads(t_data *data)
+void	join_threads(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_count + 1)
 		pthread_join(data->thread[i++], NULL);
 }
 
-void destroy_mutexes(t_data *data)
+void	destroy_mutexes(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_count)
 		pthread_mutex_destroy(&data->mutex[i++]);
 }
 
-int philosophers(t_data *data)
+int	philosophers(t_data *data)
 {
 	if (!create_threads(data))
 		return (FAILURE);
