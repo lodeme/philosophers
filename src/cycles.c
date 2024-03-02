@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/02 12:04:03 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/03/02 12:53:07 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	*philosopher_cycle(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
-		usleep(50);
+		usleep(philo->data->ms_to_eat * 1000);
 	while (philo->data->continue_sim)
 	{
 		lock_mutex(philo);
@@ -109,7 +109,7 @@ void	*monitor_cycle(void *arg)
 	{
 		current_ts = ts();
 		check_philosopher_state(data, current_ts);
-		usleep(1);
+		usleep(50);
 	}
 	pthread_exit(NULL);
 }
