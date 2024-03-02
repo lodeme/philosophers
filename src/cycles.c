@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/02/29 15:01:33 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:04:03 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 			satiated++;
 		i++;
 	}
-	if (data->times_eating && satiated >= data->times_eating)
+	if (data->times_eating && satiated >= data->philo_count)
 	{
 		data->continue_sim = 0;
 		printf("%lli\tAll philosophers have eaten %i meals\n", \
@@ -109,7 +109,7 @@ void	*monitor_cycle(void *arg)
 	{
 		current_ts = ts();
 		check_philosopher_state(data, current_ts);
-		usleep(1000);
+		usleep(1);
 	}
 	pthread_exit(NULL);
 }
