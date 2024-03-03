@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/03 23:25:10 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/03 23:50:42 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	access_mutex(int var, pthread_mutex_t *mutex)
 {
 	int	value;
 
-	pthread_mutex_unlock(mutex);
+	pthread_mutex_lock(mutex);
 	value =	var;
 	pthread_mutex_unlock(mutex);
 	return (value);
