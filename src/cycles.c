@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/03 23:50:42 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:47:03 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	lock_mutex(t_philo *philo)
 	log_state(philo, 3);
 }
 
-int	access_mutex(int var, pthread_mutex_t *mutex)
+int	access_mutex(int *var, pthread_mutex_t *mutex)
 {
 	int	value;
 
 	pthread_mutex_lock(mutex);
-	value =	var;
+	value =	*var;
 	pthread_mutex_unlock(mutex);
 	return (value);
 }
@@ -70,10 +70,10 @@ void	*philosopher_cycle(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
 		usleep(philo->data->ms_to_eat * 1000);
-	while (access_mutex(philo->data->continue_sim, philo->data->continue_mutex))
+	while (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
 	{
 		lock_mutex(philo);
-		if (access_mutex(philo->data->continue_sim, philo->data->continue_mutex))
+		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
 		{
 			usleep(philo->data->ms_to_eat * 1000);
 			philo->meal_count++;
@@ -83,7 +83,7 @@ void	*philosopher_cycle(void *arg)
 		pthread_mutex_unlock(&philo->data->mutex[(philo->id + 1) % \
 			philo->data->philo_count]);
 		log_state(philo, 4);
-		if (access_mutex(philo->data->continue_sim, philo->data->continue_mutex))
+		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
 			usleep(philo->data->ms_to_sleep * 1000);
 	}
 	pthread_exit(NULL);
@@ -123,7 +123,7 @@ void	*monitor_cycle(void *arg)
 	long long	current_ts;
 
 	data = (t_data *)arg;
-	while (access_mutex(data->continue_sim, data->continue_mutex))
+	while (access_mutex(&data->continue_sim, data->continue_mutex))
 	{
 		current_ts = ts();
 		check_philosopher_state(data, current_ts);
