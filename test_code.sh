@@ -5,7 +5,7 @@ declare -A exit_codes
 
 # Run the program 100 times
 for i in {1..100}; do
-  ./philo 4 25 10 10 2
+  ./philo 4 24 10 10 2
   exit_code=$?
 
   # Increment the count for this exit code
