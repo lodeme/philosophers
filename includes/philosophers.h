@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/29 15:01:47 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/03 23:14:43 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	int						id;
-	volatile long long		last_meal_ts;
-	volatile int			meal_count;
+	long long				last_meal_ts;
+	int						meal_count;
 	t_data					*data;
 }	t_philo;
 
@@ -40,7 +40,8 @@ typedef struct s_data
 	int				ms_to_eat;
 	int				ms_to_sleep;
 	int				times_eating;
-	volatile int	continue_sim;
+	pthread_mutex_t	*continue_mutex;
+	int				continue_sim;
 	long long		ts_start;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
