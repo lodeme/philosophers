@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/03 23:52:35 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:14:39 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ int	ft_error(t_data *data, int err)
 		printf("Unable to initialize mutex\n");
 	if (err == 3)
 		printf("Unable to create thread\n");
+	if (err == 4)
+		printf("Philosopher died\n");
 	else
 		printf("Unknown error\n");
 	free_data(data);
+	g_err_code = err;
 	return (FAILURE);
 }

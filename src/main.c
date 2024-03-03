@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/02/29 15:00:10 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/04 00:17:19 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int g_err_code = 0;
 
 int	check_arguments(int argc)
 {
@@ -35,11 +37,15 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (ft_error(data, 1));
-	init_data(data, argv);
-	if (!data)
-		return (EXIT_FAILURE);
+	{
+		ft_error(data, 1);
+		return (g_err_code);
+	}
+	if (!init_data(data, argv))
+		return (g_err_code);
 	if (!philosophers(data))
-		return (EXIT_FAILURE);
+		return (g_err_code);
+	if (g_err_code != EXIT_SUCCESS)
+		return (g_err_code);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/03 23:14:43 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:13:10 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define NUM_PHILOSOPHERS 2
 # define SUCCESS 1
 # define FAILURE 0
+
+extern int g_err_code;
 
 typedef struct s_data	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/03 23:50:42 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:16:00 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 		{
 			data->continue_sim = 0;
 			printf("%lli\t%i died\n", ms_elapsed(data), i);
+			g_err_code = 4;
 		}
 		if (data->philo[i]->meal_count >= data->times_eating)
 			satiated++;
