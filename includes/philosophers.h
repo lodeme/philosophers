@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 00:55:30 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 08:49:31 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
-	int						id;
-	long long				last_meal_ts;
-	int						meal_count;
-	t_data					*data;
+	int			id;
+	long long	last_meal_ts;
+	int			meal_count;
+	t_data		*data;
 }	t_philo;
 
 typedef struct s_data
@@ -63,6 +63,7 @@ int			init_data(t_data *data, char **argv);
 int			ft_atoi(const char *str);
 long long	ts(void);
 long long	ms_elapsed(t_data *data);
+int			access_mutex(int *var, pthread_mutex_t *mutex);
 
 // FREE
 void		free_data(t_data *data);

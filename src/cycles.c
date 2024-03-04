@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/04 00:58:13 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 08:48:50 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ void	lock_mutex(t_philo *philo)
 	}
 	log_state(philo, 2);
 	log_state(philo, 3);
-}
-
-int	access_mutex(int *var, pthread_mutex_t *mutex)
-{
-	int	value;
-
-	pthread_mutex_lock(mutex);
-	value =	*var;
-	pthread_mutex_unlock(mutex);
-	return (value);
 }
 
 void	*philosopher_cycle(void *arg)
