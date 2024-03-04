@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/03 23:29:18 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:55:36 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int	init_mutexes(t_data *data)
 	if (!data->continue_mutex)
 		return (ft_error(data, 2));
 	pthread_mutex_init(data->continue_mutex, NULL);
+	data->meal_count_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!data->meal_count_mutex)
+		return (ft_error(data, 2));
+	pthread_mutex_init(data->meal_count_mutex, NULL);
 	return (SUCCESS);
 }
 

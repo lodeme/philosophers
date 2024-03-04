@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/03 23:14:43 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:55:30 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	int				ms_to_sleep;
 	int				times_eating;
 	pthread_mutex_t	*continue_mutex;
+	pthread_mutex_t	*meal_count_mutex;
 	int				continue_sim;
 	long long		ts_start;
 	pthread_t		*thread;

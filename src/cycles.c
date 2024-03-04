@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/04 00:47:03 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 00:58:13 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void	*philosopher_cycle(void *arg)
 		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
 		{
 			usleep(philo->data->ms_to_eat * 1000);
+			pthread_mutex_lock(philo->data->meal_count_mutex);
 			philo->meal_count++;
 			philo->last_meal_ts = ts();
+			pthread_mutex_unlock(philo->data->meal_count_mutex);
 		}
 		pthread_mutex_unlock(&philo->data->mutex[philo->id]);
 		pthread_mutex_unlock(&philo->data->mutex[(philo->id + 1) % \
@@ -97,6 +99,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 	i = 0;
 	satiated = 0;
 	pthread_mutex_lock(data->continue_mutex);
+	pthread_mutex_lock(data->meal_count_mutex);
 	while (i < data->philo_count && data->continue_sim)
 	{
 		if ((current_ts - data->philo[i]->last_meal_ts) > (data->ms_to_starve))
@@ -108,6 +111,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 			satiated++;
 		i++;
 	}
+	pthread_mutex_unlock(data->meal_count_mutex);
 	if (data->times_eating && satiated >= data->philo_count)
 	{
 		data->continue_sim = 0;

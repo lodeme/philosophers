@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 00:21:53 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 01:01:16 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (!philosophers(data))
 		return (EXIT_FAILURE);
+	free_data(data);
 	return (EXIT_SUCCESS);
 }

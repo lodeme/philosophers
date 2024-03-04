@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/03 23:52:35 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 01:04:52 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_data(t_data *data)
 		return ;
 	if (data->philo)
 	{
-		while (data->philo[i])
+		while (i < data->philo_count)
 			free(data->philo[i++]);
 		free(data->philo);
 	}
@@ -29,6 +29,10 @@ void	free_data(t_data *data)
 		free(data->thread);
 	if (data->mutex)
 		free(data->mutex);
+	if (data->continue_mutex)
+		free(data->continue_mutex);
+	if (data->meal_count_mutex)
+		free(data->meal_count_mutex);
 	free(data);
 }
 
