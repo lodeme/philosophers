@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 01:04:52 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:26:20 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,21 @@ void	free_data(t_data *data)
 			free(data->philo[i++]);
 		free(data->philo);
 	}
-	if (data->thread)
-		free(data->thread);
-	if (data->mutex)
-		free(data->mutex);
-	if (data->continue_mutex)
-		free(data->continue_mutex);
-	if (data->meal_count_mutex)
-		free(data->meal_count_mutex);
+	if (data->forks_sem)
+	{
+		sem_close(data->forks_sem);
+		sem_unlink("forks_sem");
+	}
+	if (data->continue_sem)
+	{
+		sem_close(data->continue_sem);
+		sem_unlink("continue_sem");
+	}
+	if (data->meal_count_sem)
+	{
+		sem_close(data->meal_count_sem);
+		sem_unlink("meal_count_sem");
+	}
 	free(data);
 }
 
@@ -42,9 +49,9 @@ int	ft_error(t_data *data, int err)
 	if (err == 1)
 		printf("Unable to allocate memory\n");
 	if (err == 2)
-		printf("Unable to initialize mutex\n");
+		printf("Unable to initialize semaphore\n");
 	if (err == 3)
-		printf("Unable to create thread\n");
+		printf("Unable to fork process\n");
 	else
 		printf("Unknown error\n");
 	free_data(data);

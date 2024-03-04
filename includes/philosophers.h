@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 08:49:31 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:56:53 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <semaphore.h>
 
-# define NUM_PHILOSOPHERS 2
 # define SUCCESS 1
 # define FAILURE 0
 
@@ -35,18 +34,17 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				philo_count;
-	int				ms_to_starve;
-	int				ms_to_eat;
-	int				ms_to_sleep;
-	int				times_eating;
-	pthread_mutex_t	*continue_mutex;
-	pthread_mutex_t	*meal_count_mutex;
-	int				continue_sim;
-	long long		ts_start;
-	pthread_t		*thread;
-	pthread_mutex_t	*mutex;
-	t_philo			**philo;
+	int			philo_count;
+	int			ms_to_starve;
+	int			ms_to_eat;
+	int			ms_to_sleep;
+	int			times_eating;
+	sem_t		*continue_sem;
+	sem_t		*meal_count_sem;
+	sem_t		*forks_sem;
+	int			continue_sim;
+	long long	ts_start;
+	t_philo		**philo;
 }	t_data;
 
 // THREADS
@@ -63,7 +61,7 @@ int			init_data(t_data *data, char **argv);
 int			ft_atoi(const char *str);
 long long	ts(void);
 long long	ms_elapsed(t_data *data);
-int			access_mutex(int *var, pthread_mutex_t *mutex);
+int			access_sem(int *var, sem_t *sem);
 
 // FREE
 void		free_data(t_data *data);
