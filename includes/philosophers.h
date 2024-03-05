@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 16:56:53 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:21:34 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <semaphore.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -51,8 +53,8 @@ typedef struct s_data
 int			philosophers(t_data *data);
 
 // CYCLES
-void		*philosopher_cycle(void *arg);
-void		*monitor_cycle(void *arg);
+void		philosopher_cycle(void *arg);
+void		monitor_cycle(void *arg);
 
 // INIT
 int			init_data(t_data *data, char **argv);

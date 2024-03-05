@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 16:29:43 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:23:47 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	init_semaphores(t_data *data)
 
 	i = 0;
 	sem_unlink("forks_sem");
-	sem_unlink("continue_sem");
 	sem_unlink("meal_count_sem");
+	sem_unlink("continue_sem");
 	data->forks_sem = sem_open("forks_sem", O_CREAT, 0644, data->philo_count);
-	data->meal_count_sem = sem_open("forks_sem", O_CREAT, 0644, data->philo_count);
-	data->meal_count_sem = sem_open("forks_sem", O_CREAT, 0644, data->philo_count);
-	if (!data->forks_sem || !data->meal_count_sem || !data->continue_sem);
+	data->meal_count_sem = sem_open("meal_count_sem", O_CREAT, 0644, data->philo_count);
+	data->continue_sem = sem_open("continue_sem", O_CREAT, 0644, data->philo_count);
+	if (!data->forks_sem || !data->meal_count_sem || !data->continue_sem)
 		return (ft_error(data, 2));
 	return (SUCCESS);
 }
