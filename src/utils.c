@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:41 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/05 17:19:24 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:41:11 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ long long	ms_elapsed(t_data *data)
 	return (ts() - data->ts_start);
 }
 
-int	access_sem(int *var,sem_t *forks_sem)
+int	access_sem(int *var, sem_t *sem)
 {
 	int	value;
 
-	sem_wait(forks_sem);
+	sem_wait(sem);
 	value =	*var;
-	sem_post(forks_sem);
+	sem_post(sem);
 	return (value);
 }

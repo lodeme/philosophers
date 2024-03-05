@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/05 17:20:50 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:32:31 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	log_state(t_philo *philo, int step)
 	int	id;
 
 	id = philo->id;
-	sem_wait(philo->data->forks_sem);
+	sem_wait(philo->data->continue_sem);
 	if (!philo->data->continue_sim)
 		;
 	else if (step == 1)
