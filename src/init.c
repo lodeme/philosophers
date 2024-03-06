@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/05 17:28:53 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:12:32 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ void	init_parameters(t_data *data, char **argv)
 
 int	init_semaphores(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	sem_unlink("forks_sem");
 	sem_unlink("meal_count_sem");
 	sem_unlink("continue_sem");
