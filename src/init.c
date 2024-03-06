@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/06 10:12:32 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:17:49 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@ void	init_parameters(t_data *data, char **argv)
 	else
 		data->times_eating = 0;
 	data->ts_start = ts();
-	data->continue_sim = 1;
 	data->philo = 0;
 	data->continue_sem = 0;
-	data->meal_count_sem = 0;
 	data->forks_sem = 0;
 }
 
 int	init_semaphores(t_data *data)
 {
 	sem_unlink("forks_sem");
-	sem_unlink("meal_count_sem");
 	sem_unlink("continue_sem");
+	sem_unlink("message_sem");
 	data->forks_sem = sem_open("forks_sem", O_CREAT, 0644, data->philo_count);
-	data->meal_count_sem = sem_open("meal_count_sem", O_CREAT, 0644, 1);
-	data->continue_sem = sem_open("continue_sem", O_CREAT, 0644, 1);
-	if (!data->forks_sem || !data->meal_count_sem || !data->continue_sem)
+	data->continue_sem = sem_open("continue_sem", O_CREAT, 0644, 0);
+	data->message_sem = sem_open("message_sem", O_CREAT, 0644, 1);
+	if (!data->forks_sem || !data->message_sem || !data->continue_sem)
 		return (ft_error(data, 2));
 	return (SUCCESS);
 }
@@ -60,6 +58,7 @@ int	init_philosophers(t_data *data)
 		data->philo[i]->last_meal_ts = data->ts_start;
 		data->philo[i]->data = data;
 		data->philo[i]->meal_count = 0;
+		data->philo[i]->pid = 0;
 		i++;
 	}
 	return (SUCCESS);

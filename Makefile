@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+         #
+#    By: piuser <piuser@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 09:50:52 by louis.demet       #+#    #+#              #
-#    Updated: 2024/03/05 17:26:54 by lodemetz         ###   ########.fr        #
+#    Updated: 2024/03/06 16:59:38 by piuser           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC =		cc
 CFLAGS =	-Werror -Wextra -Wall -g
 INCLUDES =	-Iincludes
 SRC =		src/main.c \
-			src/processes.c \
 			src/cycles.c \
 			src/init.c \
 			src/utils.c \

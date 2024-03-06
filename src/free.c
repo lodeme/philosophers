@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 16:26:20 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:16:33 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	free_data(t_data *data)
 		sem_close(data->continue_sem);
 		sem_unlink("continue_sem");
 	}
-	if (data->meal_count_sem)
+	if (data->message_sem)
 	{
-		sem_close(data->meal_count_sem);
-		sem_unlink("meal_count_sem");
+		sem_close(data->message_sem);
+		sem_unlink("message_sem");
 	}
 	free(data);
 }

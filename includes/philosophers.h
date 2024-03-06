@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/05 17:21:34 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:50 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@
 # include <semaphore.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <pthread.h>
+# include <signal.h>
 
 # define SUCCESS 1
 # define FAILURE 0
+# define THINKING 1
+# define FORK 2
+# define EATING 3
+# define SLEEPING 4
 
 typedef struct s_data	t_data;
 
@@ -31,6 +37,7 @@ typedef struct s_philo
 	int			id;
 	long long	last_meal_ts;
 	int			meal_count;
+	pid_t		pid;
 	t_data		*data;
 }	t_philo;
 
@@ -42,9 +49,8 @@ typedef struct s_data
 	int			ms_to_sleep;
 	int			times_eating;
 	sem_t		*continue_sem;
-	sem_t		*meal_count_sem;
 	sem_t		*forks_sem;
-	int			continue_sim;
+	sem_t		*message_sem;
 	long long	ts_start;
 	t_philo		**philo;
 }	t_data;
@@ -54,7 +60,6 @@ int			philosophers(t_data *data);
 
 // CYCLES
 void		philosopher_cycle(void *arg);
-void		monitor_cycle(void *arg);
 
 // INIT
 int			init_data(t_data *data, char **argv);
@@ -63,7 +68,6 @@ int			init_data(t_data *data, char **argv);
 int			ft_atoi(const char *str);
 long long	ts(void);
 long long	ms_elapsed(t_data *data);
-int			access_sem(int *var, sem_t *sem);
 
 // FREE
 void		free_data(t_data *data);
