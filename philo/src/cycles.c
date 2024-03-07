@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 18:01:30 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/07 22:02:32 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,13 @@ void	log_state(t_philo *philo, int step)
 
 int	lock_mutex(t_philo *philo)
 {
-	if (philo->id == 0)
-	{
-		log_state(philo, 1);
-		pthread_mutex_lock(&philo->data->mutex[philo->id]);
-		log_state(philo, 2);
-		if (philo->data->philo_count == 1)
-			return (FAILURE);
-		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
-			% philo->data->philo_count]);
-	}
-	else
-	{
-		log_state(philo, 1);
-		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
-			% philo->data->philo_count]);
-		log_state(philo, 2);
-		pthread_mutex_lock(&philo->data->mutex[philo->id]);
-	}
+	log_state(philo, 1);
+	pthread_mutex_lock(&philo->data->mutex[philo->id]);
+	log_state(philo, 2);
+	if (philo->data->philo_count == 1)
+		return (FAILURE);
+	pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
+		% philo->data->philo_count]);
 	log_state(philo, 2);
 	log_state(philo, 3);
 	return (SUCCESS);
