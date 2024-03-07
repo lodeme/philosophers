@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/06 17:11:16 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:37:49 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void *check_end(void *arg)
 		}
 		if (philo->meal_count >= philo->data->times_eating)
 		{
-			printf("%lli\tAll philosophers have had %i meals\n", ms_elapsed(philo->data), philo->data->times_eating),
-			sem_post(philo->data->continue_sem);
-			break;
+			sem_post(philo->data->meals_sem);
+			if (philo->pid > 0)
+				kill(philo->pid, SIGKILL);
 		}
 		sem_post(philo->data->message_sem);
 		usleep(50);

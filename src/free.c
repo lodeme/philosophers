@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/06 17:16:33 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:21:39 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	free_data(t_data *data)
 	{
 		sem_close(data->message_sem);
 		sem_unlink("message_sem");
+	}
+	if (data->meals_sem)
+	{
+		sem_close(data->meals_sem);
+		sem_unlink("meals_sem");
 	}
 	free(data);
 }

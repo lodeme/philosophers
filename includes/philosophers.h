@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/06 17:19:50 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:12:09 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	sem_t		*continue_sem;
 	sem_t		*forks_sem;
 	sem_t		*message_sem;
+	sem_t		*meals_sem;
 	long long	ts_start;
 	t_philo		**philo;
 }	t_data;

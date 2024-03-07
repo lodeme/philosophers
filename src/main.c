@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/06 17:14:25 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:39:14 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,38 @@ void	kill_processes(t_data *data)
 
 	i = 0;
 	while (i < data->philo_count)
-		kill(data->philo[i++]->pid, SIGKILL);
+	{
+		if (data->philo[i]->pid > 0)
+			kill(data->philo[i++]->pid, SIGKILL);
+	}
+}
+
+void	*check_meals(void *arg)
+{
+	int		i;
+	t_data	*data;
+
+	data = (t_data *)arg;
+	i = 0;
+	while (i < data->philo_count)
+	{
+		sem_wait(data->meals_sem);
+		i++;
+	}
+	sem_wait(data->message_sem);
+	printf("%lli\tAll philosophers had %i meals.\n", ms_elapsed(data), data->times_eating);
+	sem_post(data->continue_sem);
+	return (0);
 }
 
 int	philosophers(t_data *data)
 {
+	pthread_t	meals_thread;
+
 	if (!create_processes(data))
 		return (FAILURE);
+	pthread_create(&meals_thread, NULL, check_meals, (void *)data);
+	pthread_detach(meals_thread);
 	sem_wait(data->continue_sem);
 	kill_processes(data);
 	return (SUCCESS);
