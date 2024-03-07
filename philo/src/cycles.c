@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 17:40:44 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:01:30 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void	log_state(t_philo *philo, int step)
 	pthread_mutex_unlock(philo->data->continue_mut);
 }
 
-void	lock_mutex(t_philo *philo)
+int	lock_mutex(t_philo *philo)
 {
 	if (philo->id == 0)
 	{
 		log_state(philo, 1);
 		pthread_mutex_lock(&philo->data->mutex[philo->id]);
 		log_state(philo, 2);
+		if (philo->data->philo_count == 1)
+			return (FAILURE);
 		pthread_mutex_lock(&philo->data->mutex[(philo->id + 1) \
 			% philo->data->philo_count]);
 	}
@@ -51,6 +53,7 @@ void	lock_mutex(t_philo *philo)
 	}
 	log_state(philo, 2);
 	log_state(philo, 3);
+	return (SUCCESS);
 }
 
 void	*philosopher_cycle(void *arg)
@@ -62,7 +65,8 @@ void	*philosopher_cycle(void *arg)
 		usleep(philo->data->ms_to_eat * 1000);
 	while (access_mutex(&philo->data->continue_sim, philo->data->continue_mut))
 	{
-		lock_mutex(philo);
+		if (!lock_mutex(philo))
+			break ;
 		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mut))
 		{
 			usleep(philo->data->ms_to_eat * 1000);
