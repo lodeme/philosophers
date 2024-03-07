@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:41 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/06 16:31:57 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:42:18 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ long long	ms_elapsed(t_data *data)
 {
 	return (ts() - data->ts_start);
 }
-

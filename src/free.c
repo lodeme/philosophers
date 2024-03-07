@@ -3,28 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 11:21:39 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:35:33 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	free_data(t_data *data)
+void	close_semaphores(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (!data)
-		return ;
-	if (data->philo)
-	{
-		while (i < data->philo_count)
-			free(data->philo[i++]);
-		free(data->philo);
-	}
 	if (data->forks_sem)
 	{
 		sem_close(data->forks_sem);
@@ -45,6 +34,22 @@ void	free_data(t_data *data)
 		sem_close(data->meals_sem);
 		sem_unlink("meals_sem");
 	}
+}
+
+void	free_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (!data)
+		return ;
+	if (data->philo)
+	{
+		while (i < data->philo_count)
+			free(data->philo[i++]);
+		free(data->philo);
+	}
+	close_semaphores(data);
 	free(data);
 }
 

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 12:12:50 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:40:31 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void log_state(t_philo *philo, int step)
+void	log_state(t_philo *philo, int step)
 {
-	int id;
+	int	id;
 
 	id = philo->id;
 	sem_wait(philo->data->message_sem);
@@ -29,9 +29,28 @@ void log_state(t_philo *philo, int step)
 	sem_post(philo->data->message_sem);
 }
 
-void *check_end(void *arg)
+void	*check_meals(void *arg)
 {
-	t_philo *philo;
+	int		i;
+	t_data	*data;
+
+	data = (t_data *)arg;
+	i = 0;
+	while (i < data->philo_count)
+	{
+		sem_wait(data->meals_sem);
+		i++;
+	}
+	sem_wait(data->message_sem);
+	printf("%lli\tAll philosophers had %i meals.\n", ms_elapsed(data), \
+		data->times_eating);
+	sem_post(data->continue_sem);
+	return (0);
+}
+
+void	*check_end(void *arg)
+{
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (1)
@@ -55,10 +74,10 @@ void *check_end(void *arg)
 	return (0);
 }
 
-void philosopher_cycle(void *arg)
+void	philosopher_cycle(void *arg)
 {
-	t_philo *philo;
-	pthread_t thread;
+	t_philo		*philo;
+	pthread_t	thread;
 
 	pthread_create(&thread, NULL, check_end, arg);
 	pthread_detach(thread);

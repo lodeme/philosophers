@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:42:56 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 11:12:09 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:40:43 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			philosophers(t_data *data);
 
 // CYCLES
 void		philosopher_cycle(void *arg);
+void		*check_meals(void *arg);
 
 // INIT
 int			init_data(t_data *data, char **argv);

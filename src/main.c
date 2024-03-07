@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 12:07:23 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:40:21 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,6 @@ void	kill_processes(t_data *data)
 		if (data->philo[i]->pid > 0)
 			kill(data->philo[i++]->pid, SIGKILL);
 	}
-}
-
-void	*check_meals(void *arg)
-{
-	int		i;
-	t_data	*data;
-
-	data = (t_data *)arg;
-	i = 0;
-	while (i < data->philo_count)
-	{
-		sem_wait(data->meals_sem);
-		i++;
-	}
-	sem_wait(data->message_sem);
-	printf("%lli\tAll philosophers had %i meals.\n", ms_elapsed(data), data->times_eating);
-	sem_post(data->continue_sem);
-	return (0);
 }
 
 int	philosophers(t_data *data)
