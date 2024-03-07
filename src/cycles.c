@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 11:50:18 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:57:18 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void philosopher_cycle(void *arg)
 		log_state(philo, FORK);
 		log_state(philo, EATING);
 		usleep(philo->data->ms_to_eat * 1000);
-		philo->meal_count++;
 		philo->last_meal_ts = ts();
 		sem_post(philo->data->forks_sem);
 		sem_post(philo->data->forks_sem);
 		log_state(philo, SLEEPING);
 		usleep(philo->data->ms_to_sleep * 1000);
+		philo->meal_count++;
 	}
 }
