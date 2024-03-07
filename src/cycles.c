@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 11:57:18 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:12:50 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void *check_end(void *arg)
 				kill(philo->pid, SIGKILL);
 		}
 		sem_post(philo->data->message_sem);
-		usleep(50);
+		usleep(100);
 	}
 	return (0);
 }

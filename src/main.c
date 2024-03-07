@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 12:01:01 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:07:23 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ int	philosophers(t_data *data)
 
 	if (!create_processes(data))
 		return (FAILURE);
-	pthread_create(&meals_thread, NULL, check_meals, (void *)data);
-	pthread_detach(meals_thread);
+	if (data->times_eating)
+	{
+		pthread_create(&meals_thread, NULL, check_meals, (void *)data);
+		pthread_detach(meals_thread);
+	}
 	sem_wait(data->continue_sem);
 	kill_processes(data);
 	return (SUCCESS);
