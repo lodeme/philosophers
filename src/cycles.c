@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 11:37:49 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:50:18 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void *check_end(void *arg)
 		{
 			printf("%lli\t%i died\n", ms_elapsed(philo->data), philo->id);
 			sem_post(philo->data->continue_sem);
+			break ;
 		}
 		if (philo->meal_count >= philo->data->times_eating)
 		{

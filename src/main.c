@@ -6,7 +6,7 @@
 /*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 11:39:14 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 11:48:50 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	*check_meals(void *arg)
 		sem_wait(data->meals_sem);
 		i++;
 	}
-	sem_wait(data->message_sem);
 	printf("%lli\tAll philosophers had %i meals.\n", ms_elapsed(data), data->times_eating);
 	sem_post(data->continue_sem);
 	return (0);
