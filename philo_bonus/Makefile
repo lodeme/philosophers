@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: piuser <piuser@student.42.fr>              +#+  +:+       +#+         #
+#    By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 09:50:52 by louis.demet       #+#    #+#              #
-#    Updated: 2024/03/06 16:59:38 by piuser           ###   ########.fr        #
+#    Updated: 2024/03/07 17:36:50 by lodemetz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =		philo
+NAME =		philo_bonus
 CC =		cc
 CFLAGS =	-Werror -Wextra -Wall -g
 INCLUDES =	-Iincludes
