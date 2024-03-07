@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/04 08:48:50 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:40:44 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	log_state(t_philo *philo, int step)
 	int	id;
 
 	id = philo->id;
-	pthread_mutex_lock(philo->data->continue_mutex);
+	pthread_mutex_lock(philo->data->continue_mut);
 	if (!philo->data->continue_sim)
 		;
 	else if (step == 1)
@@ -28,7 +28,7 @@ void	log_state(t_philo *philo, int step)
 		printf("%lli\t%d is eating.\n", ms_elapsed(philo->data), id);
 	else if (step == 4)
 		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), id);
-	pthread_mutex_unlock(philo->data->continue_mutex);
+	pthread_mutex_unlock(philo->data->continue_mut);
 }
 
 void	lock_mutex(t_philo *philo)
@@ -60,10 +60,10 @@ void	*philosopher_cycle(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
 		usleep(philo->data->ms_to_eat * 1000);
-	while (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
+	while (access_mutex(&philo->data->continue_sim, philo->data->continue_mut))
 	{
 		lock_mutex(philo);
-		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
+		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mut))
 		{
 			usleep(philo->data->ms_to_eat * 1000);
 			pthread_mutex_lock(philo->data->meal_count_mutex);
@@ -75,7 +75,7 @@ void	*philosopher_cycle(void *arg)
 		pthread_mutex_unlock(&philo->data->mutex[(philo->id + 1) % \
 			philo->data->philo_count]);
 		log_state(philo, 4);
-		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mutex))
+		if (access_mutex(&philo->data->continue_sim, philo->data->continue_mut))
 			usleep(philo->data->ms_to_sleep * 1000);
 	}
 	pthread_exit(NULL);
@@ -88,7 +88,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 
 	i = 0;
 	satiated = 0;
-	pthread_mutex_lock(data->continue_mutex);
+	pthread_mutex_lock(data->continue_mut);
 	pthread_mutex_lock(data->meal_count_mutex);
 	while (i < data->philo_count && data->continue_sim)
 	{
@@ -97,9 +97,8 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 			data->continue_sim = 0;
 			printf("%lli\t%i died\n", ms_elapsed(data), i);
 		}
-		if (data->philo[i]->meal_count >= data->times_eating)
+		if (data->philo[i++]->meal_count >= data->times_eating)
 			satiated++;
-		i++;
 	}
 	pthread_mutex_unlock(data->meal_count_mutex);
 	if (data->times_eating && satiated >= data->philo_count)
@@ -108,7 +107,7 @@ void	check_philosopher_state(t_data *data, long long current_ts)
 		printf("%lli\tAll philosophers have had %i meals\n", \
 			ms_elapsed(data), data->times_eating);
 	}
-	pthread_mutex_unlock(data->continue_mutex);
+	pthread_mutex_unlock(data->continue_mut);
 }
 
 void	*monitor_cycle(void *arg)
@@ -117,7 +116,7 @@ void	*monitor_cycle(void *arg)
 	long long	current_ts;
 
 	data = (t_data *)arg;
-	while (access_mutex(&data->continue_sim, data->continue_mutex))
+	while (access_mutex(&data->continue_sim, data->continue_mut))
 	{
 		current_ts = ts();
 		check_philosopher_state(data, current_ts);

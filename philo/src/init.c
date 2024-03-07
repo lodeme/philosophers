@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 00:55:36 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:40:18 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	init_mutexes(t_data *data)
 		if (pthread_mutex_init(&data->mutex[i++], NULL) != 0)
 			return (ft_error(data, 2));
 	}
-	data->continue_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!data->continue_mutex)
+	data->continue_mut = malloc(sizeof(pthread_mutex_t));
+	if (!data->continue_mut)
 		return (ft_error(data, 2));
-	pthread_mutex_init(data->continue_mutex, NULL);
+	pthread_mutex_init(data->continue_mut, NULL);
 	data->meal_count_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!data->meal_count_mutex)
 		return (ft_error(data, 2));

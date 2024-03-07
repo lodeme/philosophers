@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:41 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 08:48:54 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:39:30 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	access_mutex(int *var, pthread_mutex_t *mutex)
 	int	value;
 
 	pthread_mutex_lock(mutex);
-	value =	*var;
+	value = *var;
 	pthread_mutex_unlock(mutex);
 	return (value);
 }

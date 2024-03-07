@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/04 01:04:52 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:40:18 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	free_data(t_data *data)
 		free(data->thread);
 	if (data->mutex)
 		free(data->mutex);
-	if (data->continue_mutex)
-		free(data->continue_mutex);
+	if (data->continue_mut)
+		free(data->continue_mut);
 	if (data->meal_count_mutex)
 		free(data->meal_count_mutex);
 	free(data);
