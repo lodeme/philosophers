@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/08 16:53:13 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:31:27 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	philosopher_cycle(void *arg)
 	while (1)
 	{
 		log_state(philo, THINKING);
+		if (philo->meal_count > 0)
+			usleep(100);
 		sem_wait(philo->data->forks_sem);
 		log_state(philo, FORK);
 		sem_wait(philo->data->forks_sem);
