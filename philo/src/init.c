@@ -3,23 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 17:40:18 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 09:27:55 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_parameters(t_data *data, char **argv)
+int	check_parameters(t_data *data)
+{
+	if (data->philo_count < 1
+		|| data->ms_to_starve < 1
+		|| data->ms_to_eat < 1
+		|| data->ms_to_sleep < 1
+		|| data->times_eating < 0)
+		return (ft_error(data, 4));
+	return (SUCCESS);
+}
+
+int	init_parameters(t_data *data, char **argv)
 {
 	data->philo_count = ft_atoi(argv[1]);
 	data->ms_to_starve = ft_atoi(argv[2]);
 	data->ms_to_eat = ft_atoi(argv[3]);
 	data->ms_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
+	{
+		if (ft_atoi(argv[5]) == 0)
+			return (ft_error(data, 4));
 		data->times_eating = ft_atoi(argv[5]);
+	}
 	else
 		data->times_eating = 0;
 	data->ts_start = ts();
@@ -27,6 +42,7 @@ void	init_parameters(t_data *data, char **argv)
 	data->mutex = 0;
 	data->philo = 0;
 	data->continue_sim = 1;
+	return (SUCCESS);
 }
 
 int	init_mutexes(t_data *data)
@@ -77,7 +93,10 @@ int	init_philosophers(t_data *data)
 
 int	init_data(t_data *data, char **argv)
 {
-	init_parameters(data, argv);
+	if (!init_parameters(data, argv))
+		return (FAILURE);
+	if (!check_parameters(data))
+		return (FAILURE);
 	data->thread = malloc(sizeof(pthread_t) * (data->philo_count + 1));
 	if (!data->thread)
 		return (ft_error(data, 1));
