@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/08 09:23:16 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/08 19:32:30 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	ft_error(t_data *data, int err)
 	printf("Error: ");
 	if (err == 1)
 		printf("Unable to allocate memory\n");
-	if (err == 2)
+	else if (err == 2)
 		printf("Unable to initialize mutex\n");
-	if (err == 3)
+	else if (err == 3)
 		printf("Unable to create thread\n");
-	if (err == 4)
+	else if (err == 4)
 		printf("Wrong parameter values\n");
 	else
 		printf("Unknown error\n");

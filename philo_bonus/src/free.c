@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/08 19:22:16 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:32:11 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	free_data(t_data *data)
 
 int	ft_error(t_data *data, int err)
 {
-	printf("Error:");
+	printf("Error: ");
 	if (err == 1)
 		printf("Unable to allocate memory\n");
-	if (err == 2)
+	else if (err == 2)
 		printf("Unable to initialize semaphore\n");
-	if (err == 3)
+	else if (err == 3)
 		printf("Unable to fork process\n");
-	if (err == 4)
+	else if (err == 4)
 		printf("Wrong parameter values\n");
-	if (err == 5)
+	else if (err == 5)
 		printf("Unable to create thread\n");
 	else
 		printf("Unknown error\n");
