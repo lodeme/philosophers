@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 16:35:33 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:27:58 by piuser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	ft_error(t_data *data, int err)
 		printf("Unable to initialize semaphore\n");
 	if (err == 3)
 		printf("Unable to fork process\n");
+	if (err == 4)
+		printf("Wrong parameter values\n");
 	else
 		printf("Unknown error\n");
 	free_data(data);
