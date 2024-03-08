@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 16:40:31 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:17:12 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	log_state(t_philo *philo, int step)
 	id = philo->id;
 	sem_wait(philo->data->message_sem);
 	if (step == THINKING)
-		printf("%lli\t%d is thinking.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is thinking\n", ms_elapsed(philo->data), id);
 	else if (step == FORK)
-		printf("%lli\t%d has taken a fork.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d has taken a fork\n", ms_elapsed(philo->data), id);
 	else if (step == EATING)
-		printf("%lli\t%d is eating.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is eating\n", ms_elapsed(philo->data), id);
 	else if (step == SLEEPING)
-		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is sleeping\n", ms_elapsed(philo->data), id);
 	sem_post(philo->data->message_sem);
 }
 
@@ -42,7 +42,7 @@ void	*check_meals(void *arg)
 		i++;
 	}
 	sem_wait(data->message_sem);
-	printf("%lli\tAll philosophers had %i meals.\n", ms_elapsed(data), \
+	printf("%lli\tAll philosophers had %i meals\n", ms_elapsed(data), \
 		data->times_eating);
 	sem_post(data->continue_sem);
 	return (0);

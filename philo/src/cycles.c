@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/07 22:02:32 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/08 16:16:22 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	log_state(t_philo *philo, int step)
 	if (!philo->data->continue_sim)
 		;
 	else if (step == 1)
-		printf("%lli\t%d is thinking.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is thinking\n", ms_elapsed(philo->data), id);
 	else if (step == 2)
-		printf("%lli\t%d has taken a fork.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d has taken a fork\n", ms_elapsed(philo->data), id);
 	else if (step == 3)
-		printf("%lli\t%d is eating.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is eating\n", ms_elapsed(philo->data), id);
 	else if (step == 4)
-		printf("%lli\t%d is sleeping.\n", ms_elapsed(philo->data), id);
+		printf("%lli\t%d is sleeping\n", ms_elapsed(philo->data), id);
 	pthread_mutex_unlock(philo->data->continue_mut);
 }
 
