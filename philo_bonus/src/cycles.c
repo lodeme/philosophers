@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/08 18:40:44 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:23:45 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,32 +77,36 @@ void	*check_end(void *arg)
 	return (0);
 }
 
+void	do_routine(t_philo *philo)
+{
+	log_state(philo, THINKING);
+	if (philo->meal_count > 0)
+		usleep(100);
+	sem_wait(philo->data->forks_sem);
+	log_state(philo, FORK);
+	sem_wait(philo->data->forks_sem);
+	log_state(philo, FORK);
+	log_state(philo, EATING);
+	philo->last_meal_ts = ts();
+	usleep(philo->data->ms_to_eat * 1000);
+	sem_post(philo->data->forks_sem);
+	sem_post(philo->data->forks_sem);
+	log_state(philo, SLEEPING);
+	philo->meal_count++;
+	usleep(philo->data->ms_to_sleep * 1000);
+}
+
 void	philosopher_cycle(void *arg)
 {
 	t_philo		*philo;
 	pthread_t	thread;
 
-	pthread_create(&thread, NULL, check_end, arg);
+	if (pthread_create(&thread, NULL, check_end, arg))
+		return ;
 	pthread_detach(thread);
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
 		usleep(philo->data->ms_to_eat * 1000);
 	while (1)
-	{
-		log_state(philo, THINKING);
-		if (philo->meal_count > 0)
-			usleep(100);
-		sem_wait(philo->data->forks_sem);
-		log_state(philo, FORK);
-		sem_wait(philo->data->forks_sem);
-		log_state(philo, FORK);
-		log_state(philo, EATING);
-		philo->last_meal_ts = ts();
-		usleep(philo->data->ms_to_eat * 1000);
-		sem_post(philo->data->forks_sem);
-		sem_post(philo->data->forks_sem);
-		log_state(philo, SLEEPING);
-		philo->meal_count++;
-		usleep(philo->data->ms_to_sleep * 1000);
-	}
+		do_routine(philo);
 }

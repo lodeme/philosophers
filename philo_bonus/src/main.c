@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 20:34:42 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/07 16:40:21 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:21:53 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	philosophers(t_data *data)
 		return (FAILURE);
 	if (data->times_eating)
 	{
-		pthread_create(&meals_thread, NULL, check_meals, (void *)data);
+		if (pthread_create(&meals_thread, NULL, check_meals, (void *)data))
+			return (ft_error(data, 5));
 		pthread_detach(meals_thread);
 	}
 	sem_wait(data->continue_sem);

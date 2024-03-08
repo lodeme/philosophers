@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:59:05 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/08 10:27:58 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/08 19:22:16 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	ft_error(t_data *data, int err)
 		printf("Unable to fork process\n");
 	if (err == 4)
 		printf("Wrong parameter values\n");
+	if (err == 5)
+		printf("Unable to create thread\n");
 	else
 		printf("Unknown error\n");
 	free_data(data);
