@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/08 16:16:22 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:25:58 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	lock_mutex(t_philo *philo)
 		% philo->data->philo_count]);
 	log_state(philo, 2);
 	log_state(philo, 3);
+	philo->last_meal_ts = ts();
 	return (SUCCESS);
 }
 
@@ -61,7 +62,6 @@ void	*philosopher_cycle(void *arg)
 			usleep(philo->data->ms_to_eat * 1000);
 			pthread_mutex_lock(philo->data->meal_count_mutex);
 			philo->meal_count++;
-			philo->last_meal_ts = ts();
 			pthread_mutex_unlock(philo->data->meal_count_mutex);
 		}
 		pthread_mutex_unlock(&philo->data->mutex[philo->id]);
