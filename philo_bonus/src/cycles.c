@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/08 16:17:12 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:53:13 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	*check_end(void *arg)
 			sem_post(philo->data->meals_sem);
 			if (philo->pid > 0)
 				kill(philo->pid, SIGKILL);
+			sem_post(philo->data->message_sem);
+			break ;
 		}
 		sem_post(philo->data->message_sem);
 		usleep(100);
@@ -92,12 +94,12 @@ void	philosopher_cycle(void *arg)
 		sem_wait(philo->data->forks_sem);
 		log_state(philo, FORK);
 		log_state(philo, EATING);
-		usleep(philo->data->ms_to_eat * 1000);
 		philo->last_meal_ts = ts();
+		usleep(philo->data->ms_to_eat * 1000);
 		sem_post(philo->data->forks_sem);
 		sem_post(philo->data->forks_sem);
 		log_state(philo, SLEEPING);
-		usleep(philo->data->ms_to_sleep * 1000);
 		philo->meal_count++;
+		usleep(philo->data->ms_to_sleep * 1000);
 	}
 }
