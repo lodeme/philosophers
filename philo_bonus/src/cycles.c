@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:00:53 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/03/08 18:31:27 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:40:44 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	*check_end(void *arg)
 			sem_post(philo->data->continue_sem);
 			break ;
 		}
-		if (philo->meal_count >= philo->data->times_eating)
+		if (philo->meal_count >= philo->data->times_eating && \
+			philo->data->times_eating)
 		{
 			sem_post(philo->data->meals_sem);
 			if (philo->pid > 0)
@@ -71,7 +72,7 @@ void	*check_end(void *arg)
 			break ;
 		}
 		sem_post(philo->data->message_sem);
-		usleep(100);
+		usleep(50);
 	}
 	return (0);
 }
