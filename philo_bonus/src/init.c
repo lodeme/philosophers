@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/08 10:31:01 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/08 15:04:46 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	init_parameters(t_data *data, char **argv)
 	data->ts_start = ts();
 	data->philo = 0;
 	data->continue_sem = 0;
+	data->message_sem = 0;
+	data->meals_sem = 0;
 	data->forks_sem = 0;
 	return (SUCCESS);
 }
