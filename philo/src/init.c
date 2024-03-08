@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piuser <piuser@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:58:33 by louis.demet       #+#    #+#             */
-/*   Updated: 2024/03/08 09:27:55 by piuser           ###   ########.fr       */
+/*   Updated: 2024/03/08 15:01:16 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	init_parameters(t_data *data, char **argv)
 	data->thread = 0;
 	data->mutex = 0;
 	data->philo = 0;
+	data->continue_mut = 0;
+	data->meal_count_mutex = 0;
 	data->continue_sim = 1;
 	return (SUCCESS);
 }
