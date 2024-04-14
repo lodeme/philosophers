@@ -1,0 +1,104 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/main.c",
+    "output": "/home/code/philosophers/philo/obj/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/threads.o",
+      "src/threads.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/threads.c",
+    "output": "/home/code/philosophers/philo/obj/threads.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/cycles.o",
+      "src/cycles.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/cycles.c",
+    "output": "/home/code/philosophers/philo/obj/cycles.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/init.o",
+      "src/init.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/init.c",
+    "output": "/home/code/philosophers/philo/obj/init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/utils.o",
+      "src/utils.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/utils.c",
+    "output": "/home/code/philosophers/philo/obj/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Werror",
+      "-Wextra",
+      "-Wall",
+      "-g",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "obj/free.o",
+      "src/free.c"
+    ],
+    "directory": "/home/code/philosophers/philo",
+    "file": "/home/code/philosophers/philo/src/free.c",
+    "output": "/home/code/philosophers/philo/obj/free.o"
+  }
+]
